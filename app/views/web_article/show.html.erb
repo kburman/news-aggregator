@@ -1,2 +1,6 @@
-<h1>WebArticle#show</h1>
-<p>Find me in app/views/web_article/show.html.erb</p>
+<%= link_to  "Back", web_article_index_path, class: ['btn', 'btn-secondary'] %>
+<%= link_to  "Goto source", @web_article.web_link.full_link.to_s, class: ['btn', 'btn-primary'] %>
+<h1><%= @web_article.title %></h1>
+<div>
+  <%= @web_article.body %>
+</div>

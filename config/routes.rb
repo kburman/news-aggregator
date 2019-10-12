@@ -2,11 +2,8 @@ require 'sidekiq/web'
 require 'sidekiq/cron/web'
 
 Rails.application.routes.draw do
-  get 'web_article/index'
-  get 'web_article/show'
-  get 'home/index'
-
-  resource :web_article
-
+  root 'web_article#index'
   mount Sidekiq::Web, at: '/sidekiq'
+
+  resources :web_article
 end
