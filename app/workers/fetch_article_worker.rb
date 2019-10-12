@@ -12,7 +12,9 @@ class FetchArticleWorker
       title: article.title,
       body: article.body
     )
+    puts(article.title)
   rescue StandardError => ex
+    puts(ex.message)
     Rails.logger.error("FetchArticleWorker(#{web_link_id}, #{scrape_service_id}) -Error- #{ex.message}")
   end
 end
