@@ -7,7 +7,9 @@ class FetchFrontPageWorker
     scrape_service = ScrapeService.includes(:web_domain).find(scrape_service_id)
     scraper_client = scrape_service.scraper_klass.new
     article_links = scraper_client.fetch_front_page
-    added_links = CreateMissingLinksService.call(article_links).filter { |link| link.web_domain_id == scrape_service.web_domain_id }
+    # Only process link from same domain
+    article_links = article_links.filter { |link| link.absolute_url.host == scrape_service.web_domain.domain_name }
+    added_links = CreateMissingLinksService.call(article_links)
     return if added_links.blank?
 
     batch.jobs do
