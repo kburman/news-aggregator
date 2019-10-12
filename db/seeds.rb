@@ -1,7 +1,10 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+SCRAPER_KLASS = [
+  WebClients::TimesOfIndiaClient
+]
+
+SCRAPER_KLASS.each do |klass|
+  base_uri = URI.parse(klass.base_uri)
+  web_domain = WebDomain.create!(domain_name: base_uri.host)
+  ScrapeService.create!(web_domain: web_domain, scraper_klass_fq_name: klass.name)
+  WebLink.create!(web_domain: web_domain, path: '/', scheme: 'https', port: base_uri.port)
+end
