@@ -1,0 +1,56 @@
+version: "3"
+services:
+  postgres:
+    container_name: 'postgres'
+    image: postgres:10.3
+    restart: always
+    env_file:
+      - .env.prod
+    volumes:
+      - ./data/postgres/:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  redis:
+    container_name: 'redis'
+    image: redis:5.0.1
+    restart: always
+    volumes:
+      - ./data/redis:/data
+    networks:
+      - backend
+
+  web:
+    container_name: 'web'
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env.prod
+    command: bash -c "./wait-for-it.sh postgres:5432 -s -t 120 -- rails db:migrate && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    depends_on:
+      - redis
+      - postgres
+    ports:
+      - '3000:3000'
+    networks:
+      - backend
+
+  sidekiq:
+    container_name: 'sidekiq'
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env.prod
+    command: bash -c "./wait-for-it.sh postgres:5432 -s -t 240 -- rails db:migrate && bundle exec sidekiq"
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - backend
+
+networks:
+  backend:

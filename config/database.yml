@@ -80,6 +80,5 @@ test:
 #
 production:
   <<: *default
+  host: postgres
   database: news_aggregator_production
-  username: news_aggregator
-  password: <%= ENV['NEWS_AGGREGATOR_DATABASE_PASSWORD'] %>

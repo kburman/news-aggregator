@@ -1,13 +1,20 @@
 <div class="card mb-3 shadow-sm">
-  <div class="row">
-    <div class="col">
-      <div class="card-body">
-        <h5 class="card-title"><%= link_to  web_article.title, web_article %></h5>
-        <p class="card-text"><%= truncate(web_article.body, :length => 125, :omission => '... (continued)') %></p>
-      </div>
+    <div class="row">
+        <div class="col">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <%= link_to  web_article.title, web_article %>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    <%= web_article.web_link.web_domain.domain_name %>
+                </h6>
+                <p class="card-text">
+                    <%= truncate(web_article.body, :length => 125, :omission => '... (continued)') %>
+                </p>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="card-footer">
-    <small class="text-muted">Acquired <%= distance_of_time_in_words(Time.now, web_article.updated_at) %> ago</small>
-  </div>
+    <div class="card-footer">
+        <small class="text-muted">Acquired <%= distance_of_time_in_words(Time.now, web_article.updated_at) %> ago</small>
+    </div>
 </div>

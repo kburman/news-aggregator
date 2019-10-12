@@ -1,0 +1,29 @@
+FROM ruby:2.6.3
+
+# Install dependencies:
+# - build-essential: To ensure certain gems can be compiled
+# - nodejs: Compile assets
+# - npm: Install node modules
+# - yarn: Install & manage node modules [should make npm obsolete]
+# - libpq-dev
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && \
+    apt-get install -qq -y build-essential nodejs yarn \
+    libpq-dev
+
+WORKDIR /app
+
+ADD Gemfile ./
+ADD Gemfile.lock ./
+ADD package.json ./
+ADD babel.config.js ./
+ADD yarn.lock ./
+RUN gem install bundler
+RUN bundle install
+RUN yarn install
+RUN yarn install --check-files
+ADD . /app
+RUN chmod +x wait-for-it.sh
+RUN bundle exec rake assets:precompile

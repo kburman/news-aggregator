@@ -1,6 +1,6 @@
 class WebArticleController < ApplicationController
   def index
-    @web_articles = WebArticle.order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    @web_articles = WebArticle.order(created_at: :desc).includes(web_link: :web_domain).paginate(page: params[:page], per_page: 10)
   end
 
   def show
