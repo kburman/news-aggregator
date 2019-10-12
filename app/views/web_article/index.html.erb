@@ -1,0 +1,10 @@
+<div class="container">
+  <div>
+    <% @web_articles.each do |web_article| %>
+      <%= render  "shared/web_article_card", web_article: web_article %>
+    <% end %>
+  </div>
+  <div class="pagination">
+    <%= will_paginate @web_articles, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  </div>
+</div>
