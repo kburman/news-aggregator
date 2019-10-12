@@ -1,6 +1,7 @@
 SCRAPER_KLASS = [
   WebClients::TimesOfIndiaClient,
-  WebClients::MenXpClient
+  WebClients::MenXpClient,
+  WebClients::EconomicsTimesClient,
 ]
 
 SCRAPER_KLASS.each do |klass|
