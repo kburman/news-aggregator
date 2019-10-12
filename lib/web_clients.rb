@@ -1,0 +1,1 @@
+require_relative 'web_clients/times_of_india_client'
