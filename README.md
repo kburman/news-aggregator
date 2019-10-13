@@ -1,24 +1,22 @@
-# README
+# New Aggregator
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Yet another new aggregator made for fun.
 
-Things you may want to cover:
+## Prerequisite
 
-* Ruby version
+- rmv
+- node
+- redis
+- postgres
 
-* System dependencies
+## Getting Started
 
-* Configuration
+To start crawler for fetching news site
+```
+bundle exec sidekiq
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+To start the rails app
+```
+bundle exec rails s
+```
