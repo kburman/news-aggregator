@@ -1,12 +1,12 @@
-<div class="container">
-  <div class="">
-    <%= link_to  "Back", web_article_index_path, class: ['btn', 'btn-secondary'] %>
-    <%= link_to  "Goto source", @web_article.web_link.full_link.to_s, class: ['btn', 'btn-primary'] %>
-  </div>
-  <div class="row">
-    <h1><%= @web_article.title %></h1>
-  </div>
-  <div class="row">
-    <p class="text-justify"><%= @web_article.body %></p>
-  </div>
+<div class="jumbotron">
+  <h1 class="display-4"><%= @web_article.title %></h1>
+  <hr class="my-4">
+  <p class="lead"><%= @web_article.web_link.web_domain.domain_name %></p>
+  <%= link_to  "Back", web_article_index_path, class: ['btn', 'btn-secondary'] %>
+  <%= link_to  "Goto source", @web_article.web_link.full_link.to_s, class: ['btn', 'btn-primary'] %>
+</div>
+<div>
+<%= @web_article.body %>
+<p>
+</p>
 </div>
