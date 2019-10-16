@@ -6,6 +6,6 @@
     <% end %>
   </div>
   <div class="pagination">
-    <%= will_paginate @web_articles, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, inner_window: 1, outer_window: 0 %>
+    <%= will_paginate @web_articles, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, inner_window: 1, outer_window: 0, page_links: false %>
   </div>
 </div>
