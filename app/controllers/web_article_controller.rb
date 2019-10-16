@@ -5,7 +5,7 @@ class WebArticleController < ApplicationController
   end
 
   def show
-    @web_article = WebArticle.find(params[:id])
+    @web_article = WebArticle.includes(web_link: :web_domain).find(params[:id])
   end
 
   private
@@ -13,7 +13,7 @@ class WebArticleController < ApplicationController
   def find_articles
     @search_term = params.dig(:web_article, :title)
     @web_articles = WebArticle.order(created_at: :desc).includes(web_link: :web_domain)
-    @web_articles = @web_articles.where("title ILIKE ?", "% %#{@search_term}%") if @search_term.present?
+    @web_articles = @web_articles.where("title ILIKE ?", "%#{@search_term}%") if @search_term.present?
     @web_articles = @web_articles.paginate(page: params[:page])
   end
 end
