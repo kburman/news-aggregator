@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_19_143358) do
+ActiveRecord::Schema.define(version: 2019_10_19_162534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,18 @@ ActiveRecord::Schema.define(version: 2019_10_19_143358) do
     t.index ["web_link_id"], name: "index_web_articles_on_web_link_id"
   end
 
+  create_table "web_contents", force: :cascade do |t|
+    t.bigint "web_link_id", null: false
+    t.text "response_headers"
+    t.binary "response_body"
+    t.bigint "body_size"
+    t.text "content_type"
+    t.datetime "scraped_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["web_link_id"], name: "index_web_contents_on_web_link_id"
+  end
+
   create_table "web_domains", force: :cascade do |t|
     t.text "domain_name", null: false
     t.integer "domain_status", default: 0, null: false
@@ -62,5 +74,6 @@ ActiveRecord::Schema.define(version: 2019_10_19_143358) do
   add_foreign_key "scrape_services", "web_domains"
   add_foreign_key "seed_urls", "web_links"
   add_foreign_key "web_articles", "web_links"
+  add_foreign_key "web_contents", "web_links"
   add_foreign_key "web_links", "web_domains"
 end

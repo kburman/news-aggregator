@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  web_link: one
+  response_headers: MyText
+  response_body: MyText
+  body_size: 
+  content_type: MyText
+  scraped_at: 2019-10-19 21:55:34
+
+two:
+  web_link: two
+  response_headers: MyText
+  response_body: MyText
+  body_size: 
+  content_type: MyText
+  scraped_at: 2019-10-19 21:55:34
