@@ -4,7 +4,7 @@ Yet another new aggregator made for fun.
 
 ## Prerequisite
 
-- rmv
+- rvm
 - node
 - redis
 - postgres
