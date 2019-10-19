@@ -1,20 +1,22 @@
 module WebModels
   class Link
-    attr_reader :absolute_url, :base_url
-    attr_accessor :link_text
+    include ActiveModel::Validations
 
-    def initialize(uri, base_url = '', link_text)
-      @orig_url = URI.parse(URI.escape(uri.to_s.strip))
-      @base_url = URI.parse(URI.escape(base_url.to_s.strip))
-      @link_text = link_text
+    attr_accessor :href, :text, :src_link
 
-      process_link
+    validates :href, presence: true
+    validates :full_link, url: { no_local: true, public_suffix: true }
+    validates :src_link, url: { no_local: true, public_suffix: true, allow_blank: true }
+
+    def full_link
+      base_link = URI.parse(src_link.to_s)
+      href_link = URI.parse(href.to_s)
+
+      href_link.scheme ||= base_link.scheme
+      href_link.host ||= base_link.host
+      href_link.port ||= base_link.port
+
+      href_link.to_s
     end
-
-    private
-
-    def process_link
-      @absolute_url = URI.join(@base_url, @orig_url)
-    end
-  end  
+  end
 end

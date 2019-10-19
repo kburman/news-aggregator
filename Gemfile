@@ -28,6 +28,9 @@ gem 'jbuilder', '~> 2.7'
 gem 'redis'
 gem 'connection_pool'
 
+# For URL validation in ActiveRecords
+gem "validate_url"
+
 # Sidekiq for background jobs
 gem 'sidekiq'
 gem 'sidekiq-batch'
