@@ -1,3 +1,7 @@
 refresh_seed_url:
   cron: "*/5 * * * *" # Every 5 minutes
   class: "SeedUrlWorker"
+
+crawl_web_link:
+  cron: "*/5 * * * *" # Every 5 minutes
+  class: "StartCrawlWorkflowWorker"
