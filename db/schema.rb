@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_12_110605) do
+ActiveRecord::Schema.define(version: 2019_10_19_143358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(version: 2019_10_12_110605) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["web_domain_id"], name: "index_scrape_services_on_web_domain_id"
+  end
+
+  create_table "seed_urls", force: :cascade do |t|
+    t.bigint "web_link_id", null: false
+    t.datetime "last_scraped_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["web_link_id"], name: "index_seed_urls_on_web_link_id", unique: true
   end
 
   create_table "web_articles", force: :cascade do |t|
@@ -52,6 +60,7 @@ ActiveRecord::Schema.define(version: 2019_10_12_110605) do
   end
 
   add_foreign_key "scrape_services", "web_domains"
+  add_foreign_key "seed_urls", "web_links"
   add_foreign_key "web_articles", "web_links"
   add_foreign_key "web_links", "web_domains"
 end
