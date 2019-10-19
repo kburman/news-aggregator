@@ -3,6 +3,7 @@ class WebContent < ApplicationRecord
 end
 
 # == Schema Information
+# Schema version: 20191019162534
 #
 # Table name: web_contents
 #
@@ -15,4 +16,8 @@ end
 #  scraped_at       :datetime
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#
+# Indexes
+#
+#  index_web_contents_on_web_link_id  (web_link_id)
 #

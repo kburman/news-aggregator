@@ -10,6 +10,7 @@ class ScrapeService < ApplicationRecord
 end
 
 # == Schema Information
+# Schema version: 20191019162534
 #
 # Table name: scrape_services
 #

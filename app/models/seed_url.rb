@@ -3,6 +3,7 @@ class SeedUrl < ApplicationRecord
 end
 
 # == Schema Information
+# Schema version: 20191019162534
 #
 # Table name: seed_urls
 #
@@ -11,4 +12,8 @@ end
 #  last_scraped_at :datetime
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#
+# Indexes
+#
+#  index_seed_urls_on_web_link_id  (web_link_id) UNIQUE
 #

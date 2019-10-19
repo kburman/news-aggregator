@@ -3,6 +3,7 @@ class WebArticle < ApplicationRecord
 end
 
 # == Schema Information
+# Schema version: 20191019162534
 #
 # Table name: web_articles
 #
