@@ -260,6 +260,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
+  connection_pool
   dotenv-rails
   httparty
   irb
@@ -270,6 +271,7 @@ DEPENDENCIES
   public_suffix
   puma (~> 3.11)
   rails (~> 6.0.0)
+  redis
   rubocop
   sass-rails (~> 5)
   selenium-webdriver
