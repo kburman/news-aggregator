@@ -80,5 +80,5 @@ test:
 #
 production:
   <<: *default
-  host: postgres
+  host: <%= ENV.fetch('DATABASE_URL') %>
   database: news_aggregator_production
