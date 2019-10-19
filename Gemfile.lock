@@ -62,6 +62,7 @@ GEM
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
     ast (2.4.0)
+    awesome_print (1.8.0)
     bindex (0.8.1)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
@@ -79,6 +80,10 @@ GEM
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     crass (1.0.4)
+    dotenv (2.7.5)
+    dotenv-rails (2.7.5)
+      dotenv (= 2.7.5)
+      railties (>= 3.2, < 6.1)
     erubi (1.9.0)
     et-orbi (1.2.2)
       tzinfo
@@ -93,6 +98,7 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (1.7.0)
       concurrent-ruby (~> 1.0)
+    irb (1.0.0)
     jaro_winkler (1.5.3)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
@@ -237,6 +243,7 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
+    whois (4.1.0)
     will_paginate (3.1.8)
     will_paginate-bootstrap4 (0.2.2)
       will_paginate (~> 3.0, >= 3.0.0)
@@ -249,14 +256,18 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  awesome_print
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
+  dotenv-rails
   httparty
+  irb
   jbuilder (~> 2.7)
   listen (>= 3.0.5, < 3.2)
   nokogiri
   pg (>= 0.18, < 2.0)
+  public_suffix
   puma (~> 3.11)
   rails (~> 6.0.0)
   rubocop
@@ -272,6 +283,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webdrivers
   webpacker (~> 4.0)
+  whois (~> 4.0)
   will_paginate (~> 3.1.0)
   will_paginate-bootstrap4
 

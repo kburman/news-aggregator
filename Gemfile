@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
+gem 'irb', require: false
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.0'
 # Use postgresql as the database for Active Record
@@ -43,10 +44,22 @@ gem 'rubocop', require: false
 gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap4'
 
+# gem 'wordnet', '~> 1.1', '>= 1.1.1'
+# gem 'wordnet-defaultdb'
+
+# gem 'stanford-core-nlp'
+
+gem 'httparty'
+
+gem 'awesome_print'
+gem 'whois', '~> 4.0'
+gem 'public_suffix'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
+  gem 'dotenv-rails'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
