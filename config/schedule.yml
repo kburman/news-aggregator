@@ -1,7 +1,11 @@
 refresh_seed_url:
-  cron: "*/3 * * * *" # Every 1 minutes
+  cron: "*/15 * * * *" # Every 15 minutes
   class: "CrawlPipeline::SeedUrlWorker"
 
 crawl_web_link:
-  cron: "*/5 * * * *" # Every 5 minutes
+  cron: "* * * * *" # Every 1 minutes
   class: "CrawlPipeline::StartCrawlWorkflowWorker"
+
+extract_web_content:
+  cron: "* * * * *" # Every 5 minutes
+  class: "ExtractorPipeline::StartExtractionWorkflowWorker"

@@ -4,7 +4,7 @@ module CrawlPipeline
     include Sidekiq::Worker
 
     # Number of URL to take from queue for processing
-    CRAWL_TASK_NUM = 100
+    CRAWL_TASK_NUM = 1000
 
     def perform
       queue = PriorityQueue.new(CrawlManager::CRAWLER_QUEUE_NAME)

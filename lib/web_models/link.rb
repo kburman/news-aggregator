@@ -9,14 +9,21 @@ module WebModels
     validates :src_link, url: { no_local: true, public_suffix: true, allow_blank: true }
 
     def full_link
-      base_link = URI.parse(src_link.to_s)
-      href_link = URI.parse(href.to_s)
+      URI.join(src_link.to_s, href.to_s).to_s
+    rescue URI::InvalidURIError, URI::BadURIError
+      href
+    end
 
-      href_link.scheme ||= base_link.scheme
-      href_link.host ||= base_link.host
-      href_link.port ||= base_link.port
+    def href=(val)
+      @href = URI.escape(val.to_s.strip)
+    end
 
-      href_link.to_s
+    def src_link=(val)
+      @src_link = URI.escape(val.to_s.strip)
+    end
+
+    def text=(val)
+      @text = val.to_s.strip
     end
   end
 end

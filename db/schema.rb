@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_19_162534) do
+ActiveRecord::Schema.define(version: 2019_10_20_074211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2019_10_19_162534) do
     t.datetime "scraped_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "http_code", default: 200, null: false
     t.index ["web_link_id"], name: "index_web_contents_on_web_link_id"
   end
 

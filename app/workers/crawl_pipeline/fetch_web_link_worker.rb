@@ -10,6 +10,7 @@ module CrawlPipeline
         web_link_id: link_item['link_id'],
         response_headers: response.headers.to_json,
         response_body: response.body,
+        http_code: response.code,
         body_size: response.size,
         content_type: response.content_type,
         scraped_at: Time.now
@@ -18,7 +19,8 @@ module CrawlPipeline
       web_content = WebContent.create!(**atrr)
       PriorityQueue.new(CrawlManager::EXTRACT_QUEUE_NAME).insert_or_incr(link_item['link_id'], CrawlManager::CRAWL_DEFAULT_SCORE)
       PriorityQueue.new(CrawlManager::EXTRACT_QUEUE_NAME).insert_or_incr(web_content.id, CrawlManager::EXTRACT_DEFAULT_SCORE)
+    rescue StandardError => e
+      Rails.logger.error("Failed fetching content for #{link_item} #{e.message}")
     end
   end
-
 end
