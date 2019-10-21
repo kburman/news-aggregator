@@ -10,13 +10,14 @@ module ExtractorPipeline
       Rails.logger.info("Found #{extract_tasks.length} for extration")
       return if extract_tasks.blank?
 
-      extract_links = WebContent.where(id: extract_tasks.map(&:first), content_type: 'text/html', http_code: 200).includes(web_link: :web_domain)
+      extract_links = WebContent.where(id: extract_tasks.keys, content_type: 'text/html', http_code: 200).includes(web_link: :web_domain)
       extact_link_json = extract_links.map do |extract_link|
         {
           web_domain_id: extract_link.web_link.web_domain_id,
           web_link_id: extract_link.web_link_id,
           full_link: extract_link.web_link.full_link.to_s,
-          web_content_id: extract_link.id
+          web_content_id: extract_link.id,
+          score: extract_tasks[extract_link.id.to_s]
         }
       end
       Rails.logger.info("Found #{extract_links.length} web_content out of #{extract_tasks.length} given.")

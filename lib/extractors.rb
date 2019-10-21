@@ -8,20 +8,20 @@ module Extractors
     NewsArticleExtractor
   ]
 
+  PROCESSED_ITEMS_QUEUE_PREFIX = 'data-item:'
+
   def self.extract_item_from_html(dom, config)
     HTML_EXTRACTORS.map do |extractor|
       extractor.call(dom, config) rescue []
     end.flatten
   end
 
-  def self.process_extracted_items(web_content_id, items)
+  def self.process_extracted_items(web_content_id, items, score)
     item_klass_grouping = items.group_by { |item| item.class.name }
     item_klass_grouping.each do |klass_name, items|
-      if klass_name == WebModels::Link.name
-        CreateMissingLinksService.call(items)
-      else
-        puts("Missing processor for #{klass_name}")
-      end
+      queue_name = PROCESSED_ITEMS_QUEUE_PREFIX + klass_name.parameterize
+      items_json = items.map(&:as_json)
+      PriorityQueueWithList.insert_items(queue_name, web_content_id, score, items_json)
     end
   end
 end

@@ -2,7 +2,7 @@ module CrawlPipeline
   class DomainCrawlerWorker
     include Sidekiq::Worker
 
-    # web_links = [{:web_domain_id=>555, :web_link_id=>26965, :full_link=>"http://www.etimes.in"}]
+    # web_links = [{:web_domain_id=>555, :web_link_id=>26965, :full_link=>"http://www.etimes.in", :score => 2}]
     def perform(web_domain_id, web_links)
       return if web_links.blank?
 

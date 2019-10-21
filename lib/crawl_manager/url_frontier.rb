@@ -5,14 +5,14 @@ module CrawlManager
     def self.next_crawl_batch(batch_size = 100)
       raise 'Batch size should be atleast 2' if batch_size < 2
 
-      PriorityQueue.pop_max_bulk(CrawlManager::QUEUE_CRAWL_NAME, batch_size)
+      PriorityQueue.pop_max_bulk(CrawlManager::QUEUE_CRAWL_NAME, batch_size).to_h
     end
 
     # Return list of link_ids which need to extraction next
     def self.next_extract_batch(batch_size = 100)
       raise 'Batch size should be atleast 2' if batch_size < 2
 
-      PriorityQueue.pop_max_bulk(CrawlManager::QUEUE_EXTRACT_NAME, batch_size)
+      PriorityQueue.pop_max_bulk(CrawlManager::QUEUE_EXTRACT_NAME, batch_size).to_h
     end
 
     # Add web_link for crawling with some score.
@@ -21,8 +21,8 @@ module CrawlManager
       PriorityQueue.insert_or_incr(CrawlManager::QUEUE_CRAWL_NAME, link_id, score)
     end
 
-    def self.append_for_extraction(web_link_id, web_content)
-      PriorityQueue.insert_or_incr(CrawlManager::QUEUE_EXTRACT_NAME, web_content.id, CrawlManager::SCORE_EXTRACT_DEFAULT)
+    def self.append_for_extraction(web_content, score)
+      PriorityQueue.insert_or_incr(CrawlManager::QUEUE_EXTRACT_NAME, web_content.id, score)
     end
   end
 end
