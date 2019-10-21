@@ -1,11 +1,12 @@
+  require_relative 'crawl_manager/url_frontier'
+
 module CrawlManager
   # Queue Name
-  CRAWLER_QUEUE_NAME = 'crawler-queue'.freeze
-  EXTRACT_QUEUE_NAME = 'extractor-queue'.freeze
+  QUEUE_CRAWL_NAME = 'crawler-queue'.freeze
+  QUEUE_EXTRACT_NAME = 'extractor-queue'.freeze
 
   # Score constants
-  CRAWL_DEFAULT_SCORE = 1.0
-  CRAWL_REFRESH_SCORE = CRAWL_DEFAULT_SCORE*5
-
-  EXTRACT_DEFAULT_SCORE = 1.0
+  SCORE_CRAWL_DEFAULT = 10.0
+  SCORE_CRAWL_SEED    = SCORE_CRAWL_DEFAULT * 2
+  SCIRE_EXTRACT_DEFAULT = 10.0
 end

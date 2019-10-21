@@ -1,4 +1,4 @@
-# Fetches top N urls from the `crawler-queue` and start a worker for each domain
+# Fetches top `CRAWL_TASK_NUM` urls from the `crawler-queue` and start a worker for each domain
 module CrawlPipeline
   class StartCrawlWorkflowWorker
     include Sidekiq::Worker
@@ -7,22 +7,30 @@ module CrawlPipeline
     CRAWL_TASK_NUM = 1000
 
     def perform
-      queue = PriorityQueue.new(CrawlManager::CRAWLER_QUEUE_NAME)
-      crawl_tasks = queue.pop_max_bulk(CRAWL_TASK_NUM)
-      query = WebLink.where(id: crawl_tasks.map(&:first))
+      crawl_tasks = CrawlManager::UrlFrontier.next_crawl_batch(CRAWL_TASK_NUM)
+      Rails.logger.info("Found #{crawl_tasks.length} for crawling")
+      return if crawl_tasks.blank?
 
-      domain_hash = query.includes(:web_domain).group_by { |link| link.web_domain_id }
-      return if domain_hash.blank?
+      crawl_links = WebLink.where(id: crawl_tasks.map(&:first)).includes(:web_domain)
+      crawl_links_json = crawl_links.map do |crawl_link|
+        {
+          web_domain_id: crawl_link.web_domain_id,
+          web_link_id: crawl_link.id,
+          full_link: crawl_link.full_link.to_s
+        }
+      end
+      Rails.logger.info("Found #{crawl_links.length} urls in db out of #{crawl_tasks.length}")
+      return if crawl_links.blank?
 
       crawl_batch = Sidekiq::Batch.new
-      crawl_batch.description = "Perodic page crawl"
+      crawl_batch.description = "Crawler Queue - #{crawl_links.length} URLs"
+      web_domain_mapping = crawl_links_json.group_by { |web_link| web_link[:web_domain_id] }
+
       crawl_batch.jobs do
-        domain_hash.each do |web_domain_id, web_links|
-          link_items = web_links.map { |item| { link_id: item.id, full_link: item.full_link.to_s } }
-          DomainCrawlerWorker.perform_async(web_domain_id, link_items)
+        web_domain_mapping.each do |web_domain_id, web_links|
+          DomainCrawlerWorker.perform_async(web_domain_id, web_links)
         end
       end
     end
   end
-
 end
