@@ -22,7 +22,7 @@ module CrawlManager
     end
 
     def self.append_for_extraction(web_link_id, web_content)
-      PriorityQueue.insert_or_incr(CrawlManager::QUEUE_EXTRACT_NAME, web_content.id, CrawlManager::SCIRE_EXTRACT_DEFAULT)
+      PriorityQueue.insert_or_incr(CrawlManager::QUEUE_EXTRACT_NAME, web_content.id, CrawlManager::SCORE_EXTRACT_DEFAULT)
     end
   end
 end
