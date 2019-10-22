@@ -1,6 +1,8 @@
 # New Aggregator
 
 Yet another new aggregator made for fun.
+It helps you not only digest the news but also bisect it.
+
 
 ## Prerequisite
 
